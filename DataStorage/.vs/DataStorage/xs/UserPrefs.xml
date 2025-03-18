@@ -1,0 +1,7 @@
+﻿<Properties StartupConfiguration="{D6B42587-5E0A-4444-A418-C33ED00A0FAB}|Default">
+  <MonoDevelop.Ide.ItemProperties.Infrastructure FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Application FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.DataStorage PreferredExecutionTarget="/Applications/Opera.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Domain FirstBuild="True" />
+</Properties>
