@@ -4,7 +4,7 @@
     {
         public bool IsSuccess => Errors.Count == 0;
 
-        public List<Error> Errors { get; init; }
+        public List<Error> Errors { get; init; } = new List<Error>();
 
         public T Value { get; init; }
 

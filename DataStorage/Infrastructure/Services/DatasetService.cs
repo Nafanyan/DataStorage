@@ -7,35 +7,69 @@ namespace Infrastructure.Services
     {
         public void Create( string username, byte[] dataset )
         {
-            using var ms = new MemoryStream( dataset );
-            using var archive = new ZipArchive( ms, ZipArchiveMode.Read );
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}" );
 
-            foreach ( var entry in archive.Entries )
+            using ( var memoryStream = new MemoryStream( dataset ) )
             {
-                if ( entry.FullName.EndsWith( "/" ) ) continue; // Пропускаем директории
-
-                var fullPath = Path.Combine( username, entry.FullName );
-                Directory.CreateDirectory( Path.GetDirectoryName( fullPath ) ); // Создаем нужные директории
-
-                using var stream = entry.Open();
-                using var fileStream = new FileStream( fullPath, FileMode.Create );
-                stream.CopyTo( fileStream );
+                using ( var archive = new ZipArchive( memoryStream ) )
+                {
+                    archive.ExtractToDirectory( fullPath );
+                }
             }
         }
 
         public byte[] Get( string username, string datasetName )
         {
-            throw new NotImplementedException();
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}" );
+            byte[] byteArray;
+
+            if ( !Directory.Exists( fullPath ) )
+            {
+                throw new Exception( "Такого датасета не существует" );
+            }
+
+            using ( var memoryStream = new MemoryStream() )
+            {
+                using ( var archive = new ZipArchive( memoryStream, ZipArchiveMode.Create, true ) )
+                {
+                    foreach ( string filePath in Directory.GetFiles( fullPath, "*", SearchOption.AllDirectories ) )
+                    {
+                        string entryName = Path.GetRelativePath( fullPath, filePath );
+                        archive.CreateEntryFromFile( filePath, entryName );
+                    }
+                }
+                byteArray = memoryStream.ToArray();
+            }
+
+            return byteArray;
         }
 
         public List<string> GetNamesByUsername( string username )
         {
-            throw new NotImplementedException();
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}" );
+
+            if ( !Directory.Exists( fullPath ) )
+            {
+                return new List<string>();
+            }
+
+            string[] directories = Directory.GetDirectories( fullPath );
+
+            return directories.Select(d => Path.GetFileName( d ) ).ToList();
         }
 
         public void Delete( string username, string datasetName )
         {
-            throw new NotImplementedException();
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}/{datasetName}");
+
+            if ( Directory.Exists( fullPath ) )
+            {
+                Directory.Delete( fullPath, true );
+            }
+            else
+            {
+                throw new Exception("Такого датасета не существует");
+            }
         }
     }
 }
