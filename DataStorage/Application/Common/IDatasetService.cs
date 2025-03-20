@@ -2,11 +2,13 @@
 {
     public interface IDatasetService
     {
-        void CreateDataset( string username, byte[] dataset );
+        void Create( string username, byte[] dataset );
 
-        List<string> GetNamesByUser( string username );
+        List<string> GetNamesByUsername( string username );
 
         byte[] Get( string username, string datasetName );
+
+        void Delete( string username, string datasetName );
     }
 }
 

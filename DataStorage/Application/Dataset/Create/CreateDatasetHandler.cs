@@ -16,7 +16,7 @@ namespace Application.Dataset.Create
         {
             try
             {
-                _datasetService.CreateDataset( command.Username, command.DatasetZip );
+                _datasetService.Create( command.Username, command.DatasetZip );
 
                 return Result.Success();
             }
@@ -25,7 +25,7 @@ namespace Application.Dataset.Create
                 return Result.Error( new List<Error>
                 {
                     new Error(e.Message)
-                } ); ;
+                } );
             }
         }
     }

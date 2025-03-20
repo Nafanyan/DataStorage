@@ -1,4 +1,5 @@
 ﻿using Application.Dataset.Create;
+using Application.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataStorage.Controllers;
@@ -8,13 +9,17 @@ namespace DataStorage.Controllers;
 public class DatasetController : ControllerBase
 {
     private readonly ILogger<DatasetController> _logger;
+    private readonly ICreateDatasetHandler _createDatasetHandler;
 
-    public DatasetController( ILogger<DatasetController> logger )
+    public DatasetController(
+        ICreateDatasetHandler createDatasetHandler,
+        ILogger<DatasetController> logger )
     {
+        _createDatasetHandler = createDatasetHandler;
         _logger = logger;
     }
 
-    [HttpPost( "upload-zip" )]
+    [HttpPost( "create-zip" )]
     public IActionResult UploadDatasetZip( string username, IFormFile file )
     {
         if ( file == null || file.Length == 0 )
@@ -29,11 +34,19 @@ public class DatasetController : ControllerBase
             file.CopyTo( memoryStream );
             byte[] zipBytes = memoryStream.ToArray(); // Преобразование файла в массив байтов
 
-            var s = new CreateDatasetHandler();
+            CreateDatasetCommand command = new CreateDatasetCommand
+            {
+                Username = username,
+                DatasetZip = zipBytes
+            };
+            Result result = _createDatasetHandler.Handle( command );
 
-            Unzip( zipBytes ); // Разархивируем и сохраняем файлы
+            if ( result.IsSuccess )
+            {
+                return Ok( "Архив успешно принят и разобран." );
+            }
 
-            return Ok( "Архив успешно принят и разобран." );
+            return BadRequest();
         }
         catch ( Exception ex )
         {

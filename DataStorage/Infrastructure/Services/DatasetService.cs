@@ -5,11 +5,7 @@ namespace Infrastructure.Services
 {
     public class DatasetService : IDatasetService
     {
-        public DatasetService()
-        {
-        }
-
-        public void CreateDataset( string username, byte[] dataset )
+        public void Create( string username, byte[] dataset )
         {
             using var ms = new MemoryStream( dataset );
             using var archive = new ZipArchive( ms, ZipArchiveMode.Read );
@@ -32,7 +28,12 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public List<string> GetNamesByUser( string username )
+        public List<string> GetNamesByUsername( string username )
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete( string username, string datasetName )
         {
             throw new NotImplementedException();
         }
