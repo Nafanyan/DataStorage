@@ -1,0 +1,52 @@
+﻿<Properties StartupConfiguration="{D6B42587-5E0A-4444-A418-C33ED00A0FAB}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Infrastructure FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Application FirstBuild="True" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.DataStorage PreferredExecutionTarget="/Applications/Opera.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Domain FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/ilaaleksandrov/Desktop/VKR/Project/DataStorage/DataStorage/DataStorage/Controllers/DatasetController.cs" relfile="DataStorage/Controllers/DatasetController.cs" line="25" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Application/Dataset/Create/CreateDatasetHandler.cs">
+    <Files>
+      <File FileName="DataStorage/appsettings.json" Line="1" Column="1" />
+      <File FileName="DataStorage/Controllers/WeatherForecastController.cs" Line="42" Column="57" />
+      <File FileName="DataStorage/Program.cs" Line="45" Column="1" />
+      <File FileName="Application/Datasets/Create/CreateDatasetDto.cs" Line="3" Column="38" />
+      <File FileName="Application/Dataset/Create/ICreateDatasetHandler.cs" Line="5" Column="43" />
+      <File FileName="Application/Results/Result.cs" Line="11" Column="9" />
+      <File FileName="Application/Results/Error.cs" Line="3" Column="18" />
+      <File FileName="Application/Results/Result.cs" Line="18" Column="1" />
+      <File FileName="Application/Dataset/Create/CreateDatasetHandler.cs" Line="10" Column="38" />
+      <File FileName="Application/Common/IDataset.cs" Line="3" Column="37" />
+      <File FileName="Infrastructure/Services/DatasetService.cs" Line="10" Column="80" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DataStorage">
+            <Node name="Application">
+              <Node name="Common" expanded="True">
+                <Node name="IDatasetService.cs" selected="True" />
+              </Node>
+              <Node name="Dataset" expanded="True">
+                <Node name="Create" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="DataStorage" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+            <Node name="Infrastructure">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>
