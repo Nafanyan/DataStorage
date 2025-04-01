@@ -12,7 +12,7 @@ namespace Application.Models
         {
             services.AddScoped<ICreateModelHandler, CreateModelHandler>();
             services.AddScoped<IDeleteModelHandler, DeleteModelHandler>();
-            services.AddScoped<IGetModeltHandler, GetModeltHandler>();
+            services.AddScoped<IGetModelHandler, GetModelHandler>();
             services.AddScoped<IGetModelsNamesByUsernameHandler, GetModelsNamesByUsernameHandler>();
         }
     }

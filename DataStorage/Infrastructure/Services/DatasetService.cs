@@ -1,75 +1,45 @@
-﻿using System.IO.Compression;
-using Application.Common;
+﻿using Application.Common;
+using Infrastructure.Configurations;
 
 namespace Infrastructure.Services
 {
     public class DatasetService : IDatasetService
     {
-        public void Create( string username, byte[] dataset )
-        {
-            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}" );
+        private readonly string _datasetsPath;
+        private readonly FileService _fileService;
 
-            using ( var memoryStream = new MemoryStream( dataset ) )
-            {
-                using ( var archive = new ZipArchive( memoryStream ) )
-                {
-                    archive.ExtractToDirectory( fullPath );
-                }
-            }
+        public DatasetService( IStorageConfiguration configuration )
+        {
+            _datasetsPath = configuration.DatasetsPath;
+            _fileService = new FileService();
         }
 
-        public byte[] Get( string username, string datasetName )
+        public void Create( string username, byte[] dataset )
         {
-            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}" );
-            byte[] byteArray;
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{_datasetsPath}/{username}" );
 
-            if ( !Directory.Exists( fullPath ) )
-            {
-                throw new Exception( "Такого датасета не существует" );
-            }
-
-            using ( var memoryStream = new MemoryStream() )
-            {
-                using ( var archive = new ZipArchive( memoryStream, ZipArchiveMode.Create, true ) )
-                {
-                    foreach ( string filePath in Directory.GetFiles( fullPath, "*", SearchOption.AllDirectories ) )
-                    {
-                        string entryName = Path.GetRelativePath( fullPath, filePath );
-                        archive.CreateEntryFromFile( filePath, entryName );
-                    }
-                }
-                byteArray = memoryStream.ToArray();
-            }
-
-            return byteArray;
+            _fileService.Create( fullPath, dataset );
         }
 
         public List<string> GetNamesByUsername( string username )
         {
-            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}" );
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{_datasetsPath}/{username}" );
 
-            if ( !Directory.Exists( fullPath ) )
-            {
-                return new List<string>();
-            }
+            return _fileService.GetNamesByUsername( fullPath );
+        }
 
-            string[] directories = Directory.GetDirectories( fullPath );
+        public byte[] Get( string username, string datasetName )
+        {
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{_datasetsPath}/{username}/{datasetName}" );
 
-            return directories.Select(d => Path.GetFileName( d ) ).ToList();
+            return _fileService.Get( fullPath );
         }
 
         public void Delete( string username, string datasetName )
         {
-            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{Constants.StoragePath}/{username}/{datasetName}");
+            string fullPath = Path.Combine( Directory.GetCurrentDirectory(), $"{_datasetsPath}/{username}/{datasetName}" );
 
-            if ( Directory.Exists( fullPath ) )
-            {
-                Directory.Delete( fullPath, true );
-            }
-            else
-            {
-                throw new Exception("Такого датасета не существует");
-            }
+            _fileService.Delete( fullPath );
         }
     }
 }

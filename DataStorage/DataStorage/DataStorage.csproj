@@ -20,4 +20,10 @@
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="ConfigurationBindings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ConfigurationBindings\" />
+  </ItemGroup>
 </Project>

@@ -3,11 +3,11 @@ using Application.Results;
 
 namespace Application.Models.Get
 {
-    public class GetModeltHandler : IGetModeltHandler
+    public class GetModelHandler : IGetModelHandler
     {
         private readonly IModelService _modelsService;
 
-        public GetModeltHandler( IModelService modelsService )
+        public GetModelHandler( IModelService modelsService )
         {
             _modelsService = modelsService;
         }

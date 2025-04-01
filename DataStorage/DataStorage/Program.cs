@@ -1,4 +1,5 @@
 ﻿using Application;
+using DataStorage.ConfigurationBindings;
 using Infrastructure;
 
 namespace DataStorage;
@@ -14,8 +15,8 @@ public class Program
             .AddJsonFile( $"appsettings.{builder.Environment.EnvironmentName}.json" )
             .Build();
 
-        // Add services to the container.
-        AddBindings( builder.Services );
+        AddServicesBindings( builder.Services );
+        AddConfigurationsBindings( builder.Services, configuration );
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -48,10 +49,15 @@ public class Program
         app.Run();
     }
 
-    private static void AddBindings( IServiceCollection services )
+    private static void AddServicesBindings( IServiceCollection services )
     {
         services.AddApplicationBindings();
         services.AddInfrastructureBindings();
+    }
+
+    private static void AddConfigurationsBindings( IServiceCollection services, IConfiguration configuration )
+    {
+        services.AddStorageConfigurationBindings( configuration );
     }
 }
 

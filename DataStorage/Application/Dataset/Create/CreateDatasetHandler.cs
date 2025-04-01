@@ -24,7 +24,7 @@ namespace Application.Dataset.Create
             {
                 return Result.Error( new List<Error>
                 {
-                    new Error(e.Message)
+                    new Error( e.Message )
                 } );
             }
         }

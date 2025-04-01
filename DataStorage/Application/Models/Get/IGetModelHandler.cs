@@ -2,7 +2,7 @@
 
 namespace Application.Models.Get
 {
-    public interface IGetModeltHandler
+    public interface IGetModelHandler
     {
         ResultT<byte[]> Handle( GetModelQuery query );
     }
